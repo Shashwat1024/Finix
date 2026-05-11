@@ -7,10 +7,6 @@ function daysAgo(n: number) {
   return d.toISOString().split('T')[0]
 }
 
-function randomBetween(min: number, max: number) {
-  return Math.round((min + Math.random() * (max - min)) * 100) / 100
-}
-
 export async function POST() {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()

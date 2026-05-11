@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, ReferenceLine,
 } from 'recharts'
-import { cn } from '@/lib/utils'
 
 interface Point {
   date: string

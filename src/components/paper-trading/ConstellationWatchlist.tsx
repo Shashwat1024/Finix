@@ -57,13 +57,13 @@ const TOOLTIP_STYLES: Record<Signal, string> = {
   'Strong Sell': 'border-red-500/50 text-red-400',
 }
 
-export default function ConstellationWatchlist({ items: initialItems, userId: _userId }: Props) {
+export default function ConstellationWatchlist({ items: initialItems }: Props) {
   const router = useRouter()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const animRef = useRef<number>(0)
   const starsRef = useRef<Star[]>([])
-  const { cameraRef, reset, toWorld, wasDrag } = useCanvasCamera(canvasRef)
+  const { cameraRef, toWorld, wasDrag } = useCanvasCamera(canvasRef)
 
   const rotRef = useRef(0)
 

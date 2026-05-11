@@ -254,6 +254,7 @@ export default function ParticlePortfolio({ holdings, paperBalance }: Props) {
 
     frame()
     return () => cancelAnimationFrame(animId)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [holdings, paperBalance])
 
   return (

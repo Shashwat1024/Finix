@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { fetchNSEPrice } from '@/lib/prices'
 
-const SIGNALS = ['Strong Buy', 'Buy', 'Hold', 'Sell', 'Strong Sell'] as const
-type Signal = typeof SIGNALS[number]
+type Signal = 'Strong Buy' | 'Buy' | 'Hold' | 'Sell' | 'Strong Sell'
 
 function priceToSignal(price: number, prev: number): Signal {
   const change = ((price - prev) / prev) * 100

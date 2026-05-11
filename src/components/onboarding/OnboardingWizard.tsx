@@ -110,7 +110,7 @@ export default function OnboardingWizard({ email, initialRiskProfile, hasDhanTok
               <p className="text-muted-foreground text-sm mt-1">{email}</p>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Your AI-powered financial co-pilot for Indian markets. We'll help you track spending, monitor your portfolio, and make smarter investment decisions.
+              Your AI-powered financial co-pilot for Indian markets. We&apos;ll help you track spending, monitor your portfolio, and make smarter investment decisions.
             </p>
             <ul className="text-sm text-left space-y-2 text-muted-foreground">
               {[

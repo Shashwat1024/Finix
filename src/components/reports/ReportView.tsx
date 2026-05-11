@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function ReportView({ currentReport: initialReport, allReports }: Props) {
-  const [report, setReport] = useState(initialReport)
+  const [report] = useState(initialReport)
   const [generating, setGenerating] = useState(false)
   const [emailing, setEmailing] = useState(false)
   const [emailMsg, setEmailMsg] = useState('')
