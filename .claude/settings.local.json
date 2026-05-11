@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Move-Item *)",
+      "PowerShell(New-Item *)"
+    ]
+  }
+}
