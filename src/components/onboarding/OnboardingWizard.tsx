@@ -106,7 +106,7 @@ export default function OnboardingWizard({ email, initialRiskProfile, hasDhanTok
               <Zap className="h-7 w-7 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold">Welcome to FinAgent</h1>
+              <h1 className="text-2xl font-bold">Welcome to Finix</h1>
               <p className="text-muted-foreground text-sm mt-1">{email}</p>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">

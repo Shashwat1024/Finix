@@ -81,8 +81,8 @@ export default function Sidebar() {
 
   const brand = (
     <div className="p-5 border-b border-border">
-      <h1 className="text-xl font-bold text-primary">FinAgent</h1>
-      <p className="text-xs text-muted-foreground mt-0.5">Personal Finance AI</p>
+      <h1 className="text-xl font-bold text-primary">Finix</h1>
+      <p className="text-xs text-muted-foreground mt-0.5">AI Finance Assistant</p>
     </div>
   )
 
@@ -110,7 +110,7 @@ export default function Sidebar() {
 
       {/* ── Mobile top bar ────────────────────────────── */}
       <div className="md:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between px-4 h-14 border-b border-border bg-card">
-        <h1 className="text-lg font-bold text-primary">FinAgent</h1>
+        <h1 className="text-lg font-bold text-primary">Finix</h1>
         <button
           onClick={() => setOpen(true)}
           className="p-2 rounded-md text-muted-foreground hover:bg-secondary"
@@ -136,8 +136,8 @@ export default function Sidebar() {
           >
             <div className="flex items-center justify-between p-5 border-b border-border">
               <div>
-                <h1 className="text-xl font-bold text-primary">FinAgent</h1>
-                <p className="text-xs text-muted-foreground mt-0.5">Personal Finance AI</p>
+                <h1 className="text-xl font-bold text-primary">Finix</h1>
+                <p className="text-xs text-muted-foreground mt-0.5">AI Finance Assistant</p>
               </div>
               <button
                 onClick={() => setOpen(false)}

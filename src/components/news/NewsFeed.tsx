@@ -24,24 +24,49 @@ const SENTIMENT_CONFIG = {
   neutral:  { label: 'Neutral',  class: 'text-muted-foreground bg-secondary/60 border-border' },
 }
 
+// Stable source-colour from name hash
+function sourceColor(name: string) {
+  const palette = ['#3b82f6','#8b5cf6','#f59e0b','#10b981','#ec4899','#f97316','#06b6d4','#6366f1']
+  let h = 0
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xffffffff
+  return palette[(h >>> 0) % palette.length]
+}
+
+function SourceAvatar({ source }: { source: string }) {
+  const initials = source.replace(/[^a-zA-Z0-9 ]/g, '').split(' ').slice(0, 2).map((w) => w[0]?.toUpperCase() ?? '').join('') || '?'
+  const bg = sourceColor(source)
+  return (
+    <div className="w-16 h-16 rounded-md shrink-0 flex items-center justify-center text-white font-bold text-sm select-none"
+      style={{ background: bg + '22', border: `1px solid ${bg}44`, color: bg }}>
+      {initials}
+    </div>
+  )
+}
+
 function ArticleCard({ article }: { article: Article }) {
+  const [imgFailed, setImgFailed] = useState(false)
   const sent = SENTIMENT_CONFIG[article.sentiment] ?? SENTIMENT_CONFIG.neutral
   const date = new Date(article.published_at)
   const now = Date.now()
   const diffH = Math.round((now - date.getTime()) / 3600000)
   const timeAgo = diffH < 1 ? 'just now' : diffH < 24 ? `${diffH}h ago` : date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
 
+  const showImage = article.image && !imgFailed
+
   return (
     <div className="group rounded-lg border border-border bg-card hover:border-border/70 hover:bg-card/80 transition-all p-4">
       <div className="flex gap-3">
-        {article.image && (
+        {showImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={article.image}
             alt=""
+            referrerPolicy="no-referrer"
             className="w-16 h-16 rounded-md object-cover shrink-0 bg-secondary"
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+            onError={() => setImgFailed(true)}
           />
+        ) : (
+          <SourceAvatar source={article.source} />
         )}
         <div className="min-w-0 flex-1">
           <div className="flex items-start gap-2 justify-between mb-1">

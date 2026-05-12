@@ -4,7 +4,7 @@ import { ChatMessage } from '@/types'
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
-const SYSTEM_PROMPT = `You are FinAgent, a personal finance assistant for Indian investors with DHAN accounts.
+const SYSTEM_PROMPT = `You are Finix, a personal finance assistant for Indian investors with DHAN accounts.
 
 You have access to the user's real financial data via tools. Always use tools to fetch data before answering questions about spending, portfolio, or stocks. Never invent numbers.
 

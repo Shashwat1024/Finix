@@ -6,7 +6,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'FinAgent — Personal Finance for Indian Investors',
+  title: 'Finix — Personal Finance for Indian Investors',
   description: 'Understand your spending, grow your wealth.',
 }
 

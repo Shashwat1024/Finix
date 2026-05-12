@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { ChatMessage } from '@/types'
-import { Send, ChevronUp } from 'lucide-react'
+import { Send, ChevronUp, SquarePen, Trash2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -27,6 +27,8 @@ export default function ChatWindow({ initialHistory, totalCount }: Props) {
   const [loadingOlder, setLoadingOlder] = useState(false)
   const [offset, setOffset] = useState(Math.max(0, totalCount - PAGE_SIZE))
   const [hasMore, setHasMore] = useState(totalCount > PAGE_SIZE)
+  const [clearing, setClearing] = useState(false)
+  const [confirmClear, setConfirmClear] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -107,8 +109,65 @@ export default function ChatWindow({ initialHistory, totalCount }: Props) {
     }
   }
 
+  async function clearChat() {
+    setClearing(true)
+    await fetch('/api/chat/history', { method: 'DELETE' })
+    setMessages([])
+    setOffset(0)
+    setHasMore(false)
+    setConfirmClear(false)
+    setClearing(false)
+  }
+
   return (
     <div className="flex flex-col flex-1 min-h-0 rounded-lg border border-border bg-card overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border">
+        <span className="text-xs text-muted-foreground">
+          {messages.length > 0 ? `${messages.length} messages` : 'New conversation'}
+        </span>
+        <div className="flex items-center gap-1">
+          {/* New chat (just clears UI, keeps history in DB) */}
+          <button
+            onClick={() => { setMessages([]); setHasMore(false) }}
+            title="New chat"
+            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground px-2 py-1 rounded-md hover:bg-secondary transition-colors"
+          >
+            <SquarePen className="h-3.5 w-3.5" />
+            New chat
+          </button>
+          {/* Clear — deletes from DB */}
+          {messages.length > 0 && !confirmClear && (
+            <button
+              onClick={() => setConfirmClear(true)}
+              title="Clear history"
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-red-400 px-2 py-1 rounded-md hover:bg-secondary transition-colors"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              Clear
+            </button>
+          )}
+          {confirmClear && (
+            <div className="flex items-center gap-1">
+              <span className="text-xs text-red-400">Delete all history?</span>
+              <button
+                onClick={clearChat}
+                disabled={clearing}
+                className="text-xs text-red-400 hover:text-red-300 font-semibold px-2 py-1 rounded-md hover:bg-secondary transition-colors disabled:opacity-50"
+              >
+                {clearing ? 'Clearing…' : 'Yes'}
+              </button>
+              <button
+                onClick={() => setConfirmClear(false)}
+                className="text-xs text-muted-foreground hover:text-foreground px-2 py-1 rounded-md hover:bg-secondary transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4">
         {hasMore && (
           <div className="flex justify-center">
